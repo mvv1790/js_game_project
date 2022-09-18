@@ -1,3 +1,16 @@
-.page_color {
+h1 {
+    text-align: center;
+}
+
+#gameDiv {
+    padding-left: 23%;
+    padding-top: 5%;
+}
+
+body {
     background-color: gray;
+}
+
+Sprite {
+    border-radius: 50%;
 }
