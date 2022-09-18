@@ -48,12 +48,12 @@ class Sprite {
     constructor({position, velocity}) {
         this.position = position
         this.velocity = velocity
-        this.height = 15
         this.width = 10
+        this.height = 15
         this.attackBox = {
             position: this.position,
-            width: 10,
-            height: 8
+            width: 15,
+            height: 2
         }
     }
     crateSprite(){
