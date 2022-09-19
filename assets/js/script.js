@@ -1,11 +1,14 @@
 
 let gameCanvas = document.getElementById('gameCanvas');
 
+//canvas context variable
+
 let ctx = gameCanvas.getContext ('2d');
 
 const gravity = 0.6
 
-//Player movement keyboard 
+//Player movement keyboard commands and velocity
+
 window.addEventListener('keydown',(event) => {
     switch (event.key){
         case'd':
@@ -15,7 +18,7 @@ window.addEventListener('keydown',(event) => {
         player.velocity.x = -1
         break
         case'w':
-        player.velocity.y = -5
+        player.velocity.y = -7
         break
         case's':
         player.velocity.y = 1
@@ -24,6 +27,8 @@ window.addEventListener('keydown',(event) => {
     }
     console.log(event.key)
 })
+
+//Player keyboard up event, canceles the movement
 
 window.addEventListener('keyup',(event) => {
     switch (event.key){
@@ -44,6 +49,8 @@ window.addEventListener('keyup',(event) => {
     console.log(event.key)
 })
 
+//Player sprite and attack box arc
+
 class Sprite {
     constructor({position, velocity}) {
         this.position = position
@@ -55,33 +62,47 @@ class Sprite {
             width: 15,
             height: 2
         }
+
+        //Player sprite 
+
     }
     crateSprite(){
         ctx.fillStyle = '#F9DC5C'
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         
         //attack box
+
+        ctx.fillStyle = 'red',
         ctx.fillRect (
             this.attackBox.position.x,
             this.attackBox.position.y, 
             this.attackBox.width,
             this.attackBox.height
         )
+
+        //Refresh animations statements
+
     }
     refreshAnimation() {
         this.crateSprite()
-        this.position.x += this.velocity.x
+
         this.position.y += this.velocity.y
+
+        if (this.position.y + this.height + this.velocity.y >= gameCanvas.height) {
+            this.velocity.y = 0
+        } else this.velocity.y += gravity
+
+        this.position.x += this.velocity.x
 
         if (this.position.x + this.width + this.velocity.x >= gameCanvas.width) {
             this.velocity.x = 0
         }
-        if (this.position.y + this.width + this.velocity.y >= gameCanvas.height) {
-            this.velocity.y = 0
-        } else this.velocity.y += gravity
+
 
     }
 }
+
+//Player sprite position and velocity
 
 const player = new Sprite ({
     position: {
@@ -94,9 +115,8 @@ const player = new Sprite ({
     }
 })
 
-player.crateSprite()
+//Animations function, logs the animations to screen
 
-console.log(player)
 function animations() {
     window.requestAnimationFrame(animations)
     ctx.fillStyle ='black'
