@@ -25,7 +25,7 @@ window.addEventListener('keydown',(event) => {
         keyPressed = 'a'
         break
         case'w':
-        player.velocity.y = -7
+        player.velocity.y = -8
         keyPressed = 'w'
         break
         case's':
@@ -112,15 +112,17 @@ class Sprite {
     }
 }
 
+//Platform class
+
 class Platform {
     constructor(){
         this.position = {
-            x: 100,
-            y: 100
+            x: 150,
+            y: 105
         }
 
-        this.width = 100
-        this.height = 10
+        this.width = 40
+        this.height = 8
     }
 
     newPlatform() {
@@ -141,6 +143,8 @@ const player = new Sprite ({
     y:0, 
     }
 })
+
+//Platform position
 
 const platform = new Platform()
 
