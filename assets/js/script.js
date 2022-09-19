@@ -1,34 +1,43 @@
+//Canvas variable
 
 let gameCanvas = document.getElementById('gameCanvas');
 
-//canvas context variable
+//Canvas context variable
 
 let ctx = gameCanvas.getContext ('2d');
 
+//Gravity value
+
 const gravity = 0.6
 
-//Player movement keyboard commands and velocity
+let keyPressed
+
+//Player movement event listener, keyboard commands and velocity
 
 window.addEventListener('keydown',(event) => {
     switch (event.key){
         case'd':
-        player.velocity.x = 1
+        player.velocity.x = 3
+        keyPressed = 'd'
         break
         case 'a':
-        player.velocity.x = -1
+        player.velocity.x = -3
+        keyPressed = 'a'
         break
         case'w':
         player.velocity.y = -7
+        keyPressed = 'w'
         break
         case's':
         player.velocity.y = 1
+        keyPressed = 's'
         break
 
     }
     console.log(event.key)
 })
 
-//Player keyboard up event, canceles the movement
+//Player keyup event listener, canceles the movement
 
 window.addEventListener('keyup',(event) => {
     switch (event.key){
@@ -63,7 +72,8 @@ class Sprite {
             height: 2
         }
 
-        //Player sprite 
+
+    //Player sprite creation function
 
     }
     crateSprite(){
@@ -102,6 +112,23 @@ class Sprite {
     }
 }
 
+class Platform {
+    constructor(){
+        this.position = {
+            x: 100,
+            y: 100
+        }
+
+        this.width = 100
+        this.height = 10
+    }
+
+    newPlatform() {
+        ctx.fillStyle = 'red'
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
 //Player sprite position and velocity
 
 const player = new Sprite ({
@@ -115,6 +142,8 @@ const player = new Sprite ({
     }
 })
 
+const platform = new Platform()
+
 //Animations function, logs the animations to screen
 
 function animations() {
@@ -122,6 +151,9 @@ function animations() {
     ctx.fillStyle ='black'
     ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height)
     player.refreshAnimation()
+    platform.newPlatform()
 }
 
 animations()
+
+
